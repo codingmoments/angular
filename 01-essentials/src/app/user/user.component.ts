@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-type User = {
+interface User {
   id: string;
   name: string;
   avatar: string;
-};
+}
 
 @Component({
   selector: 'app-user',
