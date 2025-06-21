@@ -17,26 +17,19 @@ export class TasksComponent {
 
   isAddingTask = false;
 
-  constructor(private tasksService: TasksService) {
-  }
+  constructor(private tasksService: TasksService) {}
 
   get selectedUserTasks() {
     return this.tasksService.getUserTasks(this.userId);
   }
 
-  onCompleteTask(id: string) {
-
-  }
+  onCompleteTask(id: string) {}
 
   onStartAddTask() {
     this.isAddingTask = true;
   }
 
-  onCancelAddTask() {
-    this.isAddingTask = false;
-  }
-
-  onAddTask(taskData: NewTaskData) {
+  onCloseAddTask() {
     this.isAddingTask = false;
   }
 }
