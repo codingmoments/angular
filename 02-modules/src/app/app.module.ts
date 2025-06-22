@@ -8,10 +8,17 @@ import { TasksComponent } from './tasks/tasks.component';
 import { CardComponent } from './shared/card/card.component';
 import { TaskComponent } from './tasks/task/task.component';
 import { NewTaskComponent } from './tasks/new-task/new-task.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, UserComponent, TasksComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    UserComponent,
+    TasksComponent,
+    NewTaskComponent,
+  ],
   bootstrap: [AppComponent],
-  imports: [BrowserModule, CardComponent, TaskComponent, NewTaskComponent],
+  imports: [BrowserModule, FormsModule, CardComponent, TaskComponent],
 })
 export class AppModule {}
