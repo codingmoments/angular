@@ -1,10 +1,4 @@
-import {
-  Component,
-  Host,
-  HostListener,
-  input,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -14,14 +8,9 @@ import {
   styleUrl: './control.component.css',
   encapsulation: ViewEncapsulation.None,
   host: {
-    class: 'control',
-  },
+    class: 'control'
+  }
 })
 export class ControlComponent {
   label = input.required<string>();
-
-  @HostListener('click')
-  onClick() {
-    console.log('Clicked!');
-  }
 }
