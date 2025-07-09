@@ -1,4 +1,12 @@
-import { Component, ElementRef, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Query,
+  QueryList,
+  viewChild,
+  viewChildren,
+  ViewChildren,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from '../../../shared/control/control.component';
@@ -11,11 +19,14 @@ import { ControlComponent } from '../../../shared/control/control.component';
   styleUrl: './new-ticket.component.css',
 })
 export class NewTicketComponent {
-  private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
+  @ViewChildren(ControlComponent) controls!: ControlComponent[];
 
   onSubmit(title: string, request: string) {
     console.log('Title:', title);
     console.log('Request:', request);
-    this.form().nativeElement.reset();
+    this.controls.forEach((control) => {
+      console.log('Control:', control.label.call(control));
+      control.onClick.call(control);
+    });
   }
 }
