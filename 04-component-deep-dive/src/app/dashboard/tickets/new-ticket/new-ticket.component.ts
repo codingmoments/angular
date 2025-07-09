@@ -19,12 +19,12 @@ import { ControlComponent } from '../../../shared/control/control.component';
   styleUrl: './new-ticket.component.css',
 })
 export class NewTicketComponent {
-  @ViewChildren(ControlComponent) controls!: ControlComponent[];
+  private controls = viewChildren(ControlComponent);
 
   onSubmit(title: string, request: string) {
     console.log('Title:', title);
     console.log('Request:', request);
-    this.controls.forEach((control) => {
+    this.controls().forEach((control) => {
       console.log('Control:', control.label.call(control));
       control.onClick.call(control);
     });
