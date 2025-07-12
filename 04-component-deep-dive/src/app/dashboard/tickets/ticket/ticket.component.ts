@@ -14,7 +14,7 @@ export class TicketComponent {
   detailsVisible = signal(false);
 
   onToggleDetails() {
-    this.detailsVisible.set(!this.detailsVisible());
+    this.detailsVisible.update((visible) => !visible);
   }
 
   onMarkAsCompleted() {
