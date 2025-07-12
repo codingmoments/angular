@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Query,
-  QueryList,
-  viewChild,
-  viewChildren,
-  ViewChildren,
-} from '@angular/core';
+import { Component, output, viewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from '../../../shared/control/control.component';
@@ -20,10 +12,10 @@ import { ControlComponent } from '../../../shared/control/control.component';
 })
 export class NewTicketComponent {
   private controls = viewChildren(ControlComponent);
+  add = output<{ title: string; request: string }>();
 
   onSubmit(title: string, request: string) {
-    console.log('Title:', title);
-    console.log('Request:', request);
+    this.add.emit({ title: title, request: request });
     this.controls().forEach((control) => {
       console.log('Control:', control.label.call(control));
       control.onClick.call(control);
