@@ -1,4 +1,4 @@
-import { Component, output, viewChildren } from '@angular/core';
+import { Component, ElementRef, output, ViewChild, viewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from '../../../shared/control/control.component';
@@ -11,6 +11,7 @@ import { ControlComponent } from '../../../shared/control/control.component';
   styleUrl: './new-ticket.component.css',
 })
 export class NewTicketComponent {
+  @ViewChild('form') private form?: ElementRef<HTMLFormElement>;
   private controls = viewChildren(ControlComponent);
   add = output<{ title: string; request: string }>();
 
@@ -20,5 +21,6 @@ export class NewTicketComponent {
       console.log('Control:', control.label.call(control));
       control.onClick.call(control);
     });
+    this.form?.nativeElement.reset();
   }
 }
