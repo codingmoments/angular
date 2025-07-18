@@ -5,5 +5,13 @@
 
   <app-auth />
 
-  <p *ngIf="isAdmin()">Only admins should see this!</p>
+  <ng-template appAuth="admin">
+    <p>Only admins should see this!</p>
+  </ng-template>
+  <ng-template appAuth="user">
+    <p>Only users should see this!</p>
+  </ng-template>
+  <ng-template appAuth="guest">
+    <p>Only guests should see this!</p>
+  </ng-template>
 </main>
