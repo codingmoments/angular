@@ -1,10 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 
-@Component({
+@Component( {
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-})
+  imports: [ DatePipe ],
+} )
 export class AppComponent {
   currentDate = new Date();
   currentTemperaturs = {
@@ -18,7 +20,7 @@ export class AppComponent {
     25, 37, 19, -4, 28, 21, 19, 28, 33, 31, 9, 11, 5, -12, -5,
   ];
 
-  onReset(index: number) {
-    this.historicTemperatures[index] = 18;
+  onReset( index: number ) {
+    this.historicTemperatures[ index ] = 18;
   }
 }
