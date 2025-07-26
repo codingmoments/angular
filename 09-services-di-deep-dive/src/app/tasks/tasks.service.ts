@@ -1,8 +1,10 @@
-import { signal } from "@angular/core";
+import { inject, signal } from "@angular/core";
 import { Task, TaskStatus } from "./task.model";
+import { LoggingService } from "../logging.service";
 
 export class TasksService {
   private tasks = signal<Task[]>( [] );
+  private loggingService = inject( LoggingService );
 
   allTasks = this.tasks.asReadonly();
 
@@ -15,6 +17,7 @@ export class TasksService {
         status: 'OPEN'
       }
     ] );
+    this.loggingService.log( 'Added task with title ' + taskData.title );
   }
 
   updateTaskStatus( taskId: string, newStatus: TaskStatus ) {
@@ -26,5 +29,6 @@ export class TasksService {
         return task;
       }
       ) );
+    this.loggingService.log( 'Changed task stauts to ' + newStatus );
   }
 }
