@@ -12,14 +12,13 @@ export class MessagesListComponent implements OnInit {
   private messagesService = inject( MessagesService );
   private cdRef = inject( ChangeDetectorRef );
 
-  ngOnInit(): void {
-    this.messagesService.messages$.subscribe( () => {
-      this.cdRef.markForCheck();
-    });
-  }
+  messages: string[] = [];
 
-  get messages() {
-    return this.messagesService.allMessages;
+  ngOnInit(): void {
+    this.messagesService.messages$.subscribe( ( messages ) => {
+      this.messages = messages;
+      this.cdRef.markForCheck();
+    } );
   }
 
   get debugOutput() {
