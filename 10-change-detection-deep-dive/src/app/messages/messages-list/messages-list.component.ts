@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MessagesService } from '../messages.service';
 
 @Component( {
@@ -6,24 +7,12 @@ import { MessagesService } from '../messages.service';
   standalone: true,
   templateUrl: './messages-list.component.html',
   styleUrl: './messages-list.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ AsyncPipe ],
 } )
-export class MessagesListComponent implements OnInit {
+export class MessagesListComponent {
   private messagesService = inject( MessagesService );
-  private cdRef = inject( ChangeDetectorRef );
-  private destroyRef = inject( DestroyRef )
-
-  messages: string[] = [];
-
-  ngOnInit(): void {
-    const subscription = this.messagesService.messages$.subscribe( ( messages ) => {
-      this.messages = messages;
-      this.cdRef.markForCheck();
-    } );
-    this.destroyRef.onDestroy( () => {
-      subscription.unsubscribe();
-    } );
-  }
+  messages$ = this.messagesService.messages$;
 
   get debugOutput() {
     console.log( '[MessagesList] "debugOutput" binding re-evaluated.' );
