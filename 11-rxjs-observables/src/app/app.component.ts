@@ -1,4 +1,5 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { interval, map } from 'rxjs';
 
 @Component( {
@@ -7,20 +8,22 @@ import { interval, map } from 'rxjs';
   templateUrl: './app.component.html'
 } )
 export class AppComponent implements OnInit {
+  clickCount = signal( 0 );
+  clickCount$ = toObservable( this.clickCount );
   private destroyRef = inject( DestroyRef );
 
   ngOnInit() {
-    const subscription = interval( 1000 )
-      .pipe( map( value => value * 2 ) )
-      .subscribe( {
-        next: ( value ) => {
-          console.log( 'Interval value:', value );
-        }
-      } );
+    const subscription = this.clickCount$.subscribe( count => {
+      console.log( `Click count: ${ count }` );
+    } );
 
     this.destroyRef.onDestroy( () => {
       subscription.unsubscribe();
     } );
+  }
+
+  onClick() {
+    this.clickCount.update( count => count + 1 );
   }
 
 }
