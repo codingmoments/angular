@@ -19,6 +19,7 @@ export class AvailablePlacesComponent implements OnInit {
 
   places = signal<Place[] | undefined>( undefined );
   isFetching = signal( false );
+  error = signal<string | undefined>( undefined );
 
   ngOnInit() {
     this.isFetching.set( true );
@@ -33,6 +34,10 @@ export class AvailablePlacesComponent implements OnInit {
       .subscribe( {
         next: ( places ) => {
           this.places.set( places );
+        },
+        error: ( err ) => {
+          console.error( 'Error fetching places:', err );
+          this.error.set('Something went wrong while fetching places!');
         },
         complete: () => {
           this.isFetching.set( false );
