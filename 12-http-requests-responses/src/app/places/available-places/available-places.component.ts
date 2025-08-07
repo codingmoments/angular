@@ -18,8 +18,11 @@ export class AvailablePlacesComponent implements OnInit {
   private destroyRef = inject( DestroyRef );
 
   places = signal<Place[] | undefined>( undefined );
+  isFetching = signal( false );
 
   ngOnInit() {
+    this.isFetching.set( true );
+
     const subscription = this.httpClient
       .get<{ places: Place[] }>( 'http://localhost:3000/places', {
         observe: 'response',
@@ -30,6 +33,9 @@ export class AvailablePlacesComponent implements OnInit {
       .subscribe( {
         next: ( places ) => {
           this.places.set( places );
+        },
+        complete: () => {
+          this.isFetching.set( false );
         }
       } );
 
