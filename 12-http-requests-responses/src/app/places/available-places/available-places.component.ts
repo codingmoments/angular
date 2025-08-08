@@ -37,7 +37,7 @@ export class AvailablePlacesComponent implements OnInit {
         },
         error: ( err ) => {
           console.error( 'Error fetching places:', err );
-          this.error.set('Something went wrong while fetching places!');
+          this.error.set( 'Something went wrong while fetching places!' );
         },
         complete: () => {
           this.isFetching.set( false );
@@ -46,6 +46,16 @@ export class AvailablePlacesComponent implements OnInit {
 
     this.destroyRef.onDestroy( () => {
       subscription.unsubscribe();
+    } );
+  }
+
+  onSelectPlace( onSelectPlace: Place ) {
+    this.httpClient.put( 'http://localhost:3000/user-places/', {
+      placeId: onSelectPlace.id,
+    } ).subscribe( {
+      next: ( responseData ) => {
+        console.log( 'Place selected successfully:', responseData );
+      }
     } );
   }
 }
