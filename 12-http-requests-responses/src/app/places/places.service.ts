@@ -27,11 +27,14 @@ export class PlacesService {
   }
 
   addPlaceToUserPlaces( place: Place ) {
-    this.userPlaces.update( ( currentPlaces ) => [ ...currentPlaces, place ] );
-
-    return this.httpClient.put( 'http://localhost:3000/user-places/', {
+    return this.httpClient.put<{ userPlaces: Place[] }>( 'http://localhost:3000/user-places/', {
       placeId: place.id,
-    } );
+    } )
+      .pipe( tap( {
+        next: ( response ) => {
+          this.userPlaces.set( response.userPlaces || [] );
+        }
+      } ) );
   }
 
   removeUserPlace( place: Place ) { }
