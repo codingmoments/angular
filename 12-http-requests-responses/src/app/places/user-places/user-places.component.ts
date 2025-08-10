@@ -38,4 +38,14 @@ export class UserPlacesComponent implements OnInit {
       subscription.unsubscribe();
     } );
   }
+
+  removePlace( place: Place ) {
+    this.placesService.removeUserPlace( place )
+      .subscribe( {
+        error: ( err ) => {
+          console.error( 'Error removing place:', err );
+          this.error.set( 'Something went wrong while removing the place!' );
+        }
+      } );
+  }
 }
