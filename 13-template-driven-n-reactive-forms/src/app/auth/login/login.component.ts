@@ -19,5 +19,7 @@ export class LoginComponent {
 
     console.log( enteredEmail, enteredPassword );
     console.log( formData.form );
+
+    formData.form.reset();
   }
 }
