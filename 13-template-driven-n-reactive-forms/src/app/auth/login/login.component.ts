@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { of } from 'rxjs';
 
 function mustContainQuestionMark( control: AbstractControl ) {
   const value = control.value;
@@ -7,6 +8,15 @@ function mustContainQuestionMark( control: AbstractControl ) {
     return { doesNotContainQuestionMark: true };
   }
   return null;
+}
+
+function emailIsUnique( control: AbstractControl ) {
+  // Simulating an asynchronous check for email uniqueness
+  // In a real application, this would likely involve an HTTP request to a server
+  if ( control.value === 'test@example.com' ) {
+    return of( { emailNotUnique: true } );
+  }
+  return of( null );
 }
 
 @Component( {
@@ -20,6 +30,7 @@ export class LoginComponent {
   form = new FormGroup( {
     email: new FormControl( '', {
       validators: [ Validators.email, Validators.required ],
+      asyncValidators: [ emailIsUnique ],
     } ),
     password: new FormControl( '', {
       validators: [ Validators.required, Validators.minLength( 6 ), mustContainQuestionMark ],
