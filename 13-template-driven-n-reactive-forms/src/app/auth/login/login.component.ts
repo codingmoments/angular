@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { debounceTime, of } from 'rxjs';
 
 function mustContainQuestionMark( control: AbstractControl ) {
   const value = control.value;
@@ -26,7 +26,9 @@ function emailIsUnique( control: AbstractControl ) {
   styleUrl: './login.component.css',
   imports: [ ReactiveFormsModule ]
 } )
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  private destroyRef = inject( DestroyRef )
+
   form = new FormGroup( {
     email: new FormControl( '', {
       validators: [ Validators.email, Validators.required ],
@@ -47,6 +49,27 @@ export class LoginComponent {
     return this.form.controls.password.touched &&
       this.form.controls.password.dirty &&
       this.form.controls.password.invalid;
+  }
+
+  ngOnInit(): void {
+    const savedForm = window.localStorage.getItem( 'saved-login-form' );
+
+    if ( savedForm ) {
+      const parsedForm = JSON.parse( savedForm );
+      this.form.patchValue( { email: parsedForm.email } );
+    }
+
+    const subscription = this.form.valueChanges.pipe( debounceTime( 500 ) ).subscribe( {
+      next: ( value ) => {
+        window.localStorage.setItem(
+          'saved-login-form',
+          JSON.stringify( { email: value.email } ) );
+      }
+    } );
+
+    this.destroyRef.onDestroy( () => {
+      subscription.unsubscribe();
+    } );
   }
 
   onSubmit() {
