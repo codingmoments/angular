@@ -41,6 +41,11 @@ export class SignupComponent {
   } );
 
   onSubmit() {
+    if ( this.form.invalid ) {
+      console.error( 'Form is invalid' );
+      return;
+    }
+
     console.log( this.form );
   }
 
