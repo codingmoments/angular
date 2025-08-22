@@ -1,6 +1,6 @@
-import { Routes } from "@angular/router"
-import { TasksComponent } from "./tasks/tasks.component"
+import { Routes } from "@angular/router";
 import { NoTaskComponent } from "./tasks/no-task/no-task.component";
+import { UserTasksComponent } from "./users/user-tasks/user-tasks.component";
 
 export const APP_ROUTES: Routes =
   [
@@ -9,7 +9,7 @@ export const APP_ROUTES: Routes =
       component: NoTaskComponent
     },
     {
-      path: 'tasks',
-      component: TasksComponent
+      path: 'users/:userId',
+      component: UserTasksComponent
     }
   ];
