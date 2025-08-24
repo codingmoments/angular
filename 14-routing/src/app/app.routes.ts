@@ -16,6 +16,11 @@ export const APP_ROUTES: Routes =
       component: UserTasksComponent,
       children: [
         {
+          path: '',
+          redirectTo: 'tasks',
+          pathMatch: 'full'
+        },
+        {
           path: 'tasks',
           component: TasksComponent
         },
