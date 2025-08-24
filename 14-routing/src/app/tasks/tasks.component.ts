@@ -9,10 +9,11 @@ import { TasksService } from './tasks.service';
   standalone: true,
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
-  imports: [TaskComponent, RouterLink],
+  imports: [ TaskComponent, RouterLink ],
 } )
 export class TasksComponent {
   userId = input.required<string>();
+  sort = input<'asc' | 'desc'>( 'asc' );
   private tasksService = inject( TasksService );
 
   userTasks = computed( () => {
