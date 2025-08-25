@@ -21,7 +21,15 @@ export class TasksComponent implements OnInit {
   order?: 'asc' | 'desc';
 
   userTasks = computed( () => {
-    return this.tasksService.allTasks().filter( task => task.userId === this.userId() );
+    return this.tasksService.allTasks()
+      .filter( task => task.userId === this.userId() )
+      .sort( ( a, b ) => {
+        if ( this.sort() === 'asc' ) {
+          return a.title.localeCompare( b.title );
+        } else {
+          return b.title.localeCompare( a.title );
+        }
+      } );
   } );
 
 
