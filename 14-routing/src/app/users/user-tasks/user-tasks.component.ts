@@ -1,5 +1,5 @@
-import { Component, inject, input } from '@angular/core';
-import { ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
+import { Component, OnInit, inject, input } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
 import { UsersService } from '../users.service';
 
 @Component( {
@@ -9,8 +9,18 @@ import { UsersService } from '../users.service';
   styleUrl: './user-tasks.component.css',
   imports: [ RouterOutlet, RouterLink ],
 } )
-export class UserTasksComponent {
+export class UserTasksComponent implements OnInit {
+  private activatedRoute = inject( ActivatedRoute );
+
   userName = input.required<string>();
+
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe( {
+      next: ( data ) => {
+        console.log( data );
+      },
+    } );
+  }
 }
 
 export const resolveUserName: ResolveFn<string> = (
