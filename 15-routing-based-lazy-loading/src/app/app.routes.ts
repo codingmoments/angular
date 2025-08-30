@@ -1,7 +1,6 @@
 import { CanMatchFn, RedirectCommand, Router, Routes } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { routes as userRoutes } from './users/users.routes';
 import { NoTaskComponent } from './tasks/no-task/no-task.component';
 import {
   UserTasksComponent,
@@ -10,13 +9,13 @@ import {
 } from './users/user-tasks/user-tasks.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
-const dummyCanMatch: CanMatchFn = (route, segments) => {
-  const router = inject(Router);
+const dummyCanMatch: CanMatchFn = ( route, segments ) => {
+  const router = inject( Router );
   const shouldGetAccess = Math.random();
-  if (shouldGetAccess < 1) {
+  if ( shouldGetAccess < 1 ) {
     return true;
   }
-  return new RedirectCommand(router.parseUrl('/unauthorized'));
+  return new RedirectCommand( router.parseUrl( '/unauthorized' ) );
 };
 
 export const routes: Routes = [
@@ -28,10 +27,11 @@ export const routes: Routes = [
     title: 'No task selected',
   },
   {
-    path: 'users/:userId', // <your-domain>/users/<uid>
+    path: 'users/:userId',
     component: UserTasksComponent,
-    children: userRoutes,
-    canMatch: [dummyCanMatch],
+    loadChildren: () => import( './users/users.routes' )
+      .then( m => m.routes ),
+    canMatch: [ dummyCanMatch ],
     data: {
       message: 'Hello!',
     },
