@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { UserService } from './user.service';
 
 @Component( {
   selector: 'app-user',
   imports: [],
   templateUrl: './user.html',
-  styleUrl: './user.css'
+  styleUrl: './user.css',
+  providers: [ UserService ]
 } )
-export class User {
+export class User implements OnInit {
+  private userService = inject( UserService );
+
   user!: { name: string };
-  isLoggedIn!: false;
+  isLoggedIn = false;
+
+  ngOnInit(): void {
+    this.user = this.userService.user;
+  }
 }
