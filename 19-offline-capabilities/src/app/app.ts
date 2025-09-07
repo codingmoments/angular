@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
+import { Post } from './post.model';
+import { PostComponent } from './post/post';
 
-@Component({
+@Component( {
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
-})
-export class App {
-  protected title = '19-offline-capabilities';
+  styleUrl: './app.css',
+  imports: [ PostComponent ]
+} )
+export class App implements OnInit {
+  private httpClient = inject( HttpClient );
+
+  posts: Post[] = [];
+
+  ngOnInit(): void {
+    this.httpClient.get<Post[]>( 'https://jsonplaceholder.typicode.com/posts' )
+      .subscribe( ( posts ) => {
+        this.posts = posts;
+      } );
+  }
 }
