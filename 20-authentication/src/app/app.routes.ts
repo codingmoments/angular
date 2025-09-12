@@ -4,6 +4,7 @@ import { NoTaskComponent } from "./tasks/no-task/no-task.component";
 import { UserTasksComponent, resolveTitle, resolveUserName } from "./users/user-tasks/user-tasks.component";
 import { routes as userRoutes } from "./users/users.routes";
 import { inject } from "@angular/core";
+import { AuthComponent } from "./auth/auth.component";
 
 const dummyCanMatch: CanMatchFn = ( route, segments ) => {
   const router = inject( Router );
@@ -23,6 +24,11 @@ export const APP_ROUTES: Routes =
       path: '',
       component: NoTaskComponent,
       title: 'No Task Selected'
+    },
+    {
+      path: 'auth',
+      component: AuthComponent,
+      title: 'Authentication'
     },
     {
       path: 'users/:userId',
