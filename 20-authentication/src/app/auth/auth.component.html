@@ -1,3 +1,8 @@
+@if(isLoading) {
+<div style="text-align: center;">
+  <app-loading-spinner />
+</div>
+} @else {
 <div class="auth-container">
   <div class="auth-card">
     <h2>Authentication</h2>
@@ -51,3 +56,4 @@
     </form>
   </div>
 </div>
+}
