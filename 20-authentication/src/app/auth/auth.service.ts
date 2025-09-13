@@ -20,6 +20,7 @@ export class AuthService {
       password: password,
       returnSecureToken: true
     } ).pipe( catchError( ( errorRes ) => {
+      console.error( errorRes );
       let errorMessage = 'An unknown error occurred!';
       if ( !errorRes.error || !errorRes.error.error ) {
         return throwError( () => errorMessage );
@@ -28,6 +29,8 @@ export class AuthService {
         case 'EMAIL_EXISTS':
           errorMessage = 'This email exists already';
           break;
+        default:
+          errorMessage = errorRes.error.error.message;
       }
       return throwError( () => errorMessage );
     } ) );

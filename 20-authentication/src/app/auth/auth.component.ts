@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-auth',
@@ -12,6 +13,7 @@ import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinn
 } )
 export class AuthComponent {
   private authService = inject( AuthService );
+  private router = inject( Router );
 
   isLoading = false;
   error: string = '';
@@ -27,6 +29,8 @@ export class AuthComponent {
         next: ( response ) => {
           console.log( response );
           this.isLoading = false;
+          form.reset();
+          this.router.navigate( ['/users', 'u1', 'tasks'] );
         },
         error: ( errorMessage ) => {
           console.log( errorMessage ); 
@@ -34,7 +38,6 @@ export class AuthComponent {
           this.isLoading = false;
         }
       } );
-      form.reset();
     }
   }
 
