@@ -2,14 +2,14 @@
   <div class="auth-card">
     <h2>Authentication</h2>
     
-    <form #authForm="ngForm" (ngSubmit)="onLogin()">
+    <form #authForm="ngForm">
       <div class="form-group">
         <label for="username">Username</label>
         <input 
           type="text" 
           id="username" 
           name="username"
-          [(ngModel)]="username"
+          ngModel
           required
           placeholder="Enter your username"
           class="form-input"
@@ -22,7 +22,7 @@
           type="password" 
           id="password" 
           name="password"
-          [(ngModel)]="password"
+          ngModel
           required
           placeholder="Enter your password"
           class="form-input"
@@ -32,18 +32,18 @@
       <div class="button-group">
         <button 
           type="button" 
-          (click)="onLogin()" 
+          (click)="onLogin(authForm)" 
           class="btn btn-login"
-          [disabled]="!username || !password"
+          [disabled]="authForm.invalid"
         >
           Login
         </button>
         
         <button 
           type="button" 
-          (click)="onSignUp()" 
+          (click)="onSignUp(authForm)" 
           class="btn btn-signup"
-          [disabled]="!username || !password"
+          [disabled]="authForm.invalid"
         >
           Sign Up
         </button>
