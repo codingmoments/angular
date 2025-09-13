@@ -14,6 +14,7 @@ export class AuthComponent {
   private authService = inject( AuthService );
 
   isLoading = false;
+  error: string = '';
 
   onSignUp( form: NgForm ) {
     if ( form.valid ) {
@@ -22,17 +23,21 @@ export class AuthComponent {
       let username = form.value.username;
       let password = form.value.password;
 
-      this.authService.signUp( username, password ).subscribe( response => {
-        console.log( response );
-        this.isLoading = false;
-      }, error => {
-        console.error( error );
-        this.isLoading = false;
+      this.authService.signUp( username, password ).subscribe( {
+        next: ( response ) => {
+          console.log( response );
+          this.isLoading = false;
+        },
+        error: ( errorMessage ) => {
+          console.log( errorMessage ); 
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
       } );
       form.reset();
     }
   }
 
-  onLogin( orm: NgForm ) {
+  onLogin( form: NgForm ) {
   }
 }

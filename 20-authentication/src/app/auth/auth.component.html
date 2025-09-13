@@ -7,6 +7,13 @@
   <div class="auth-card">
     <h2>Authentication</h2>
     
+    @if(error) {
+    <div class="error-alert">
+      <span class="error-icon">⚠</span>
+      <span class="error-message">{{ error }}</span>
+    </div>
+    }
+    
     <form #authForm="ngForm">
       <div class="form-group">
         <label for="username">Username</label>
