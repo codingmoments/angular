@@ -8,20 +8,25 @@ import { AuthComponent } from "./auth/auth.component";
 
 const dummyCanMatch: CanMatchFn = ( route, segments ) => {
   const router = inject( Router );
-  const userSegment = segments[ 1 ].path;
 
-  if ( userSegment === 'u1' ||
-    userSegment === 'u3' ||
-    userSegment === 'u5' ) {
+  let userData = window.localStorage.getItem( 'userData' );
+  JSON.parse( userData || '{}' );
+  if ( userData && new Date( JSON.parse( userData )._tokenExpirationDate ) > new Date() ) {
     return true;
   }
-  return new RedirectCommand( router.parseUrl( '/unauthorized' ) );
+
+  if( segments[0] && segments[0].path === 'auth' ) {
+    return true;
+  }
+
+  return new RedirectCommand( router.parseUrl( '/auth' ) );
 };
 
 export const APP_ROUTES: Routes =
   [
     {
       path: '',
+      canMatch: [ dummyCanMatch ],
       component: NoTaskComponent,
       title: 'No Task Selected'
     },
@@ -43,6 +48,7 @@ export const APP_ROUTES: Routes =
     },
     {
       path: '**',
+      canMatch: [ dummyCanMatch ],
       component: NotFoundComponent
     }
   ];

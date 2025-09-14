@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { catchError, throwError } from "rxjs";
+import { Subject, catchError, tap, throwError } from "rxjs";
+import { User } from "./user.model";
 
 export interface AuthResponseData {
   idToken: string;
@@ -14,13 +15,19 @@ export interface AuthResponseData {
 @Injectable( { providedIn: 'root' } )
 export class AuthService {
   private httpClient = inject( HttpClient );
+  user?: User;
 
   signUp( email: string, password: string ) {
     return this.httpClient.post<AuthResponseData>( 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC_pywh7u10Zq34nD30SVKITxeGEV1Q7vk', {
       email: email,
       password: password,
       returnSecureToken: true
-    } ).pipe( catchError( this.handleError ) );
+    } ).pipe(
+      catchError( this.handleError ),
+      tap( resData => {
+        this.handleSuccessfulAuthentication( resData.email, resData.localId, resData.idToken, +resData.expiresIn );
+      } )
+    );
   }
 
   signIn( email: string, password: string ) {
@@ -28,7 +35,19 @@ export class AuthService {
       email: email,
       password: password,
       returnSecureToken: true
-    } ).pipe( catchError( this.handleError ) );
+    } ).pipe(
+      catchError( this.handleError ),
+      tap( resData => {
+        this.handleSuccessfulAuthentication( resData.email, resData.localId, resData.idToken, +resData.expiresIn );
+      } )
+    );
+  }
+
+  private handleSuccessfulAuthentication( email: string, userId: string, token: string, expiresIn: number ) {
+    // const expirationDate = new Date( new Date().getTime() + expiresIn * 1000 );
+    const expirationDate = new Date( new Date().getTime() + 30 * 1000 );
+    this.user = new User( userId, email, token, expirationDate );
+    window.localStorage.setItem( 'userData', JSON.stringify( this.user ) );
   }
 
   private handleError( errorRes: HttpErrorResponse ) {
