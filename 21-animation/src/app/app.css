@@ -1,0 +1,13 @@
+.normal {
+  background-color: blue;
+  transform: translateX(0);
+  transition: all 2000ms ease;
+  border-radius: 0;
+}
+
+.highlighted {
+  background-color: red;
+  transform: translateX(300px);
+  transition: all 2000ms ease;
+  border-radius: 50px;
+}

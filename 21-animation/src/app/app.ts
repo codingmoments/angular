@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 } )
 export class App {
+  divState = 'normal';
   list = [ 'Milk', 'Sugar', 'Bread' ];
 
   onAdd( item: string ) {
@@ -18,5 +19,9 @@ export class App {
     if ( index > -1 ) {
       this.list.splice( index, 1 );
     }
+  }
+
+  onAnimate() {
+    this.divState = this.divState === 'normal' ? 'highlighted' : 'normal';
   }
 }
