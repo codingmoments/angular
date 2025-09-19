@@ -8,6 +8,7 @@ import { RouterOutlet } from '@angular/router';
 } )
 export class App {
   divState = 'normal';
+  shrunken = false;
   list = [ 'Milk', 'Sugar', 'Bread' ];
 
   onAdd( item: string ) {
@@ -23,5 +24,9 @@ export class App {
 
   onAnimate() {
     this.divState = this.divState === 'normal' ? 'highlighted' : 'normal';
+  }
+
+  onShrink() {
+    this.shrunken = !this.shrunken;
   }
 }

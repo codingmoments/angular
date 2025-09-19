@@ -1,13 +1,21 @@
 .normal {
   background-color: blue;
-  transform: translateX(0);
+  transform: translateX(0) scale(1);
   transition: all 2000ms ease;
   border-radius: 0;
 }
 
 .highlighted {
   background-color: red;
-  transform: translateX(300px);
+  transform: translateX(300px) scale(1);
   transition: all 2000ms ease;
   border-radius: 50px;
+}
+
+.normal.shrunken {
+  transform: translateX(0) scale(0.5);
+}
+
+.highlighted.shrunken {
+  transform: translateX(300px) scale(0.5);
 }
