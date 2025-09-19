@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, AfterViewInit, Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component( {
@@ -6,10 +6,16 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css'
 } )
-export class App {
+export class App implements AfterViewInit {
   divState = 'normal';
   shrunken = false;
+  pageLoaded = signal( false );
+
   list = [ 'Milk', 'Sugar', 'Bread' ];
+
+  ngAfterViewInit(): void {
+    this.pageLoaded.set( true );
+  }
 
   onAdd( item: string ) {
     this.list.push( item );

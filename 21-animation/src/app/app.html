@@ -15,8 +15,8 @@
       <button class="btn btn-primary" (click)="onAdd(input.value)">Add Item!</button>
       <hr>
       <ul class="list-group">
-        @for (item of list; track $index) {
-        <li class="list-group-item" (click)="onDelete(item)">
+        @for (item of list; track item) {
+        <li [animate.enter]="pageLoaded() ? 'fade-in': null" animate.leave="fade-out" class="list-group-item" (click)="onDelete(item)">
           {{ item }}
         </li>
         }
