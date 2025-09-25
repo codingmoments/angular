@@ -1,0 +1,42 @@
+{
+    "breadcrumbs.enabled": false,
+    "editor.fontSize": 15,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+    "editor.suggestSelection": "first",
+    "editor.tabSize": 2,
+    "explorer.confirmDelete": false,
+    "html.format.wrapLineLength": 200,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "scss.format.enable": true,
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Default Dark+",
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+    "typescript.format.insertSpaceAfterTypeAssertion": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "workbench.settings.applyToAllProfiles": [
+    
+    ],
+    "scss.format.spaceAroundSelectorSeparator": true,
+    "css.format.spaceAroundSelectorSeparator": true
+}
