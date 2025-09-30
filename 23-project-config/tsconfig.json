@@ -7,6 +7,11 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
+    "paths": {
+      "my-button": [
+        "./dist/my-button"
+      ]
+    },
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
@@ -35,6 +40,12 @@
     },
     {
       "path": "./projects/backend/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/my-button/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/my-button/tsconfig.spec.json"
     }
   ]
 }
